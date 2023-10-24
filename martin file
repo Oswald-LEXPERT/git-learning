@@ -1,0 +1,49 @@
+Pour limiter la valeur à 1 et afficher un message d'erreur en cas de saisie invalide dans un champ `<input>` de type number en utilisant Vue.js, vous pouvez procéder comme suit :
+
+1. Dans votre modèle Vue, déclarez une variable pour stocker la valeur de l'input et une variable pour le message d'erreur :
+
+```html
+<template>
+  <div>
+    <input type="number" v-model="valeur" @input="checkValeur" />
+    <p class="message-erreur" v-if="erreur">{{ erreurMessage }}</p>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      valeur: 1,
+      erreur: false,
+    };
+  },
+  computed: {
+    erreurMessage() {
+      return "Il est impératif que vous rentriez un chiffre supérieur à 1.";
+    },
+  },
+  methods: {
+    checkValeur() {
+      if (this.valeur <= 1) {
+        this.erreur = true;
+      } else {
+        this.erreur = false;
+      }
+    },
+  },
+};
+</script>
+
+<style>
+.message-erreur {
+  color: red;
+}
+</style>
+```
+
+Ce code utilise `v-model` pour lier l'input à la variable `valeur` dans le modèle Vue. Lorsque l'utilisateur saisit une valeur dans l'input, la méthode `checkValeur` est appelée, vérifie si la valeur est inférieure ou égale à 1, puis affiche le message d'erreur si nécessaire.
+
+Le message d'erreur est conditionnellement affiché en utilisant `v-if` pour le rendre visible uniquement lorsque `erreur` est vrai. La classe CSS `message-erreur` est utilisée pour styliser le message en rouge.
+
+Cela permet de limiter la valeur à 1 et d'afficher un message d'erreur si la valeur est inférieure à 1. Vous pouvez personnaliser le message d'erreur en modifiant la méthode `erreurMessage`.
